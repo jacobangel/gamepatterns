@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
-import CommandExample from './CommandExample';
-import { CommandTypes, CommandResult } from './InputHandler';
+import CommandExample from './Command/Example';
+import { CommandTypes, CommandResult } from './Command/InputHandler';
 
 type Actor = {
   name: String,
@@ -25,6 +25,16 @@ const Actor = ({ hp, name }: Actor) => {
   );
 }
 
+const ActorEditor = ({ name }: Actor) => {
+  return (
+    <div>
+      <input type="text" value={name}/>
+      <input type="button" value="Save" />
+      <input type="button" value="Cancel" />
+    </div>
+  );
+}
+
 class App extends React.Component {
   state : State = {
     actor: {
@@ -35,9 +45,6 @@ class App extends React.Component {
   }
 
   handleInput = (result: CommandResult) => { 
-    if (result.type === CommandTypes.Speak) {
-    
-    }
     this.setState((prevState: State, props) => {
       switch (result.type) {
         case CommandTypes.NameChange:
@@ -77,7 +84,10 @@ class App extends React.Component {
         <div className="App-header">
           <h1>Game Pattern Examples</h1>
         </div>
-        <Actor {...actor} />
+        {this.isEditing ? 
+          <ActorEditor {...actor} /> :
+          <Actor {...actor} />
+        }
         <CommandExample 
           commands={commands} 
           myDude={actor} 
