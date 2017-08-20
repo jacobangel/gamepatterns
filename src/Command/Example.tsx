@@ -52,8 +52,8 @@ class CommandExample extends React.Component<Props, object> {
         <div>
             <h2>Command Log</h2>
             <ul>
-                {this.props.commands.map(content => 
-                    <CommandLine>{content}</CommandLine>
+                {this.props.commands.map((content, i) => 
+                    <CommandLine key={content + i}>{content}</CommandLine>
                  )}
             </ul>
         </div>
