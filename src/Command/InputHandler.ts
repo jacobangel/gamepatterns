@@ -1,7 +1,7 @@
-import { Button, DamageButton } from './Command';
+import { Button, DamageButton, JumpButton } from './Command';
 
 class InputHandler {
-  buttonX = new Button('X');
+  buttonX = new JumpButton('X');
   buttonY = new Button('Y');
   buttonO = new Button('O');
   buttonT = new DamageButton('T');
@@ -11,7 +11,6 @@ class InputHandler {
   }
 
   handleInput(e: React.SyntheticEvent<HTMLButtonElement>): Button | undefined {
-    console.log(e);
     const value = String(e.currentTarget.innerHTML).trim();
     if (value === 'X') {
       return this.buttonX;

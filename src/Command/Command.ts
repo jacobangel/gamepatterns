@@ -11,6 +11,7 @@ export enum CommandTypes {
   Damage,
   NameChange,
   Speak,
+  Jump,
 }
 
 export class Button implements Command {
@@ -40,4 +41,13 @@ export class DamageButton extends Button {
   }
 }
 
-export default { DamageButton, Button, CommandTypes }
+export class JumpButton extends Button {
+  execute(actor: any): CommandResult {
+    return {
+      type: CommandTypes.Jump,
+      value: `${actor.name} jumped so high!!!`,
+    }
+  }
+}
+
+export default { DamageButton, Button, CommandTypes, JumpButton }

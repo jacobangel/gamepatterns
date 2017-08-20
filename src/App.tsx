@@ -31,7 +31,10 @@ const ActorViewer = (props: ActorProps) => {
       <h2>Hero: {name}</h2>
       <ul>
         <li>Hp: {hp}</li>
-        <li>Status: {hp < 1 ? (hp < 10 ? 'Super dead' :'Plain dead') : 'Still kickin\' rad'}</li>
+        <li>Status: {hp < 1 ? 
+          (hp < 10 ? 'Super dead' :'Plain dead') : 
+          'Still kickin\' rad'}
+        </li>
       </ul>
     </div>
   );
@@ -59,6 +62,7 @@ class App extends React.Component {
   }
 
   handleInput = (result: CommandResult) => { 
+    // if i were to extract this i'd really be inventing the wheel, huh.
     this.setState((prevState: State, props) => {
       switch (result.type) {
         case CommandTypes.NameChange:
@@ -80,6 +84,7 @@ class App extends React.Component {
             }
           }
         case CommandTypes.Speak:
+        case CommandTypes.Jump:
           const prevCommands = prevState.commands || [];
           return {
             commands: [ ...prevCommands, result.value ]
@@ -143,7 +148,8 @@ class App extends React.Component {
         <CommandExample 
           commands={commands} 
           myDude={actor} 
-          onInput={this.handleInput}/>
+          onInput={this.handleInput}
+        />
       </div>
     );
   }
