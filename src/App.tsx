@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import CommandExample from './Command/Example';
+import BresenhamExample from './Bresenham/Example';
 import { CommandTypes, CommandResult } from './Command/Command';
 
 type Actor = {
@@ -25,9 +26,12 @@ const ActorViewer = (props: ActorProps) => {
   const { hp, name } = props;
   return (
     <div>
-      <button onClick={() => {
-        props.onEdit();
-      }}>Edit</button>
+      <div>
+        <button onClick={() => {
+          props.onEdit();
+        }}>Edit</button>
+
+      </div>
       <h2>Hero: {name}</h2>
       <ul>
         <li>Hp: {hp}</li>
@@ -61,8 +65,12 @@ class App extends React.Component {
     commands: [],
   }
 
+
+
   handleInput = (result: CommandResult) => { 
-    // if i were to extract this i'd really be inventing the wheel, huh.
+    /**
+     * if i were to extract this i'd really be inventing the wheel, huh. 
+     */
     this.setState((prevState: State, props) => {
       switch (result.type) {
         case CommandTypes.NameChange:
@@ -77,7 +85,9 @@ class App extends React.Component {
             return {};
           }
           return {
-            commands: [...prevState.commands, `Ugh, ${prevState.actor.name} took ${result.value} damage!!!`],
+            commands: [
+              ...prevState.commands, 
+            ],
             actor: { 
                ...prevState.actor, 
                hp: prevState.actor.hp - result.value 
@@ -87,7 +97,7 @@ class App extends React.Component {
         case CommandTypes.Jump:
           const prevCommands = prevState.commands || [];
           return {
-            commands: [ ...prevCommands, result.value ]
+            commands: [ ...prevCommands, result ]
           } 
 
         default:
@@ -150,6 +160,7 @@ class App extends React.Component {
           myDude={actor} 
           onInput={this.handleInput}
         />
+        <BresenhamExample /> 
       </div>
     );
   }
